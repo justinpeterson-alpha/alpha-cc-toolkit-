@@ -289,7 +289,8 @@ one-line filtered count at the end; don't list what was filtered.
 <span class="kw">REPORT STRUCTURE</span>
 - A 2-3 sentence orientation: what actually mattered.
 - TODAY'S TO-DO LIST, split Urgent/Regular, each item tagged with its
-  source thread.
+  source thread. Carry forward unresolved items from prior days only when
+  their deadline is today or tomorrow, and label them as carryovers.
 - 1. NEEDS A REPLY FROM ME (who, what, when asked, how long waiting)
 - 2. AWAITING SOMEONE ELSE (my open asks, how long pending)
 - 3. DEADLINES, DATES &amp; COMMITMENTS (near-term first)
@@ -297,19 +298,29 @@ one-line filtered count at the end; don't list what was filtered.
   recurring vendor/ops categories here, e.g. <span class="ph">[VENDOR A]</span>, <span class="ph">[IT PROVIDER]</span>,
   <span class="ph">[FACILITIES CONTACT]</span>
 - 5. <span class="ph">[YOUR PEOPLE CATEGORY, e.g. "STUDENT &amp; PARENT MATTERS"]</span> — be factual,
-  don't speculate on sensitive matters
+  name specifics (who, what, when), and do not speculate about medical
+  or health matters.
 - 6. INTERNAL / ORG (must-do vs. FYI)
 - 7. NOTABLE PATTERNS (repeat senders, recurring issues)
 If a section is empty, say so plainly rather than skipping it.
 
+<span class="kw">FORMAT</span>
+Attribute specifics: name the sender and the time for every item. Never
+invent detail. If something is ambiguous, say plainly that it's ambiguous
+rather than guessing. Prioritize actionability over completeness.
+
 <span class="kw">DELIVERY</span>
 1. <span class="cm">[OPTIONAL — SLACK]</span> Post to my own Slack DM (user ID <span class="ph">[YOUR SLACK USER
    ID]</span>, channel <span class="ph">[YOUR DM CHANNEL ID]</span>). Header + orientation + to-do as the
-   parent message; each section as a threaded reply. Use Slack markdown
-   (*bold*, _italic_, • bullets), not markdown headers.
+   parent message; each section as a threaded reply — combine short
+   sections into one reply rather than posting near-empty messages. Use
+   Slack markdown (*bold*, _italic_, • bullets), not markdown headers.
+   Keep each message under the 5000-character limit.
 2. Create a Gmail DRAFT to <span class="ph">[YOUR EMAIL]</span> with subject "Gmail Daily Briefing
-   – [date]", an HTML body and a plain-text fallback. Leave as a DRAFT —
-   do not send.
+   – [date]", an HTML body and a plain-text fallback. Write the HTML
+   directly in the htmlBody field — do not wrap it in CDATA tags or any
+   XML wrapper. Leave as a DRAFT — do not send, even if a send tool is
+   available.
 
 Confirm delivery and state the filtered-message count when done.</div>
     </div>
