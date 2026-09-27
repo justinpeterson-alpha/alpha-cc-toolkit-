@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>How to use Parent Pickup &amp; Dismissal — Alpha CC Toolkit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'>CC</text></svg>" />
+  <style>
+    :root {
+      --bg: #ffffff; --bg-soft: #f7f8fa; --text: #1f2328; --text-muted: #5b636e; --text-faint: #8b929c;
+      --border: #e6e8ec; --border-strong: #d5d9df; --accent: #2563eb; --accent-hover: #1d4ed8;
+      --accent-soft: #eff4ff; --accent-ink: #1e40af; --green: #16a34a; --green-soft: #ecfdf3;
+      --radius: 12px; --shadow: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
+      --max: 860px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .topbar { border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--text-muted); }
+    .back:hover { color: var(--text); }
+    header.hero { padding: 56px 0 8px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(30px, 5vw, 42px); letter-spacing: -0.03em; font-weight: 800; margin-bottom: 14px; }
+    .lead { font-size: 18px; color: var(--text-muted); max-width: 640px; margin-bottom: 32px; }
+    .video-slot {
+      border: 1px dashed var(--border-strong); border-radius: var(--radius); background: var(--bg-soft);
+      aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; color: var(--text-faint); margin-bottom: 48px;
+    }
+    .video-slot strong { color: var(--text-muted); font-size: 15px; font-weight: 600; }
+    .video-slot span { font-size: 13px; }
+    section { padding: 8px 0 48px; }
+    section h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 16px; }
+    .steps li {
+      counter-increment: step; position: relative; padding: 18px 20px 18px 56px; border: 1px solid var(--border);
+      border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); font-size: 15.5px; color: var(--text);
+    }
+    .steps li::before {
+      content: counter(step); position: absolute; left: 18px; top: 16px; width: 26px; height: 26px; border-radius: 8px;
+      background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center;
+    }
+    .steps li strong { display: block; margin-bottom: 2px; }
+    .steps li .muted { color: var(--text-muted); }
+    .callout { border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-soft); padding: 18px 20px; font-size: 14.5px; color: var(--text-muted); margin-top: 24px; }
+    .callout strong { color: var(--text); }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; padding: 8px 0 64px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: 15px; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary { background: #fff; color: var(--text); border: 1px solid var(--border-strong); }
+    .btn-secondary:hover { border-color: var(--text-faint); background: var(--bg-soft); }
+    footer { border-top: 1px solid var(--border); padding: 28px 0; font-size: 14px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <a href="index.html" class="back">← Back to Alpha CC Toolkit</a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span>How to use it</span>
+      <h1>Parent Pickup &amp; Dismissal</h1>
+      <p class="lead">A live, color-coded pickup board — now rebuilt to support every Alpha campus from one shared site, each with its own roster, roster password, and dismissal settings.</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- TODO: once your Loom is recorded, replace this whole .video-slot div with your embed code, e.g.:
+    <div style="position:relative;padding-bottom:56.25%;height:0;">
+      <iframe src="https://www.loom.com/embed/YOUR_VIDEO_ID" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+        style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+    </div>
+    -->
+    <div class="video-slot">
+      <strong>Video walkthrough coming soon</strong>
+      <span>The Loom will drop in right here — the steps below work in the meantime.</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <h2>Finding your campus</h2>
+      <ol class="steps">
+        <li><strong>Open the app and search for your campus</strong><span class="muted">The home page is a searchable list of every campus that's been set up — type a few letters and tap yours to go straight to its board.</span></li>
+        <li><strong>Bookmark your campus's own link</strong><span class="muted">Once you're on your campus's board, the URL is unique to your site (e.g. .../your-campus) — save that link so staff can skip the search next time.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Running dismissal</h2>
+      <ol class="steps">
+        <li><strong>Check a student in from Scan</strong><span class="muted">Type a name, scan their QR decal, or tap the mic and just say the name — voice works on Chrome, and typing is always the fallback if a browser doesn't support it.</span></li>
+        <li><strong>Watch the timer colors</strong><span class="muted">Green means just checked in, orange means about a minute waiting, red means two or more — handle red names first.</span></li>
+        <li><strong>Check them out from Checkout</strong><span class="muted">Same options as Scan — type, scan, or use voice — with one tap to confirm.</span></li>
+        <li><strong>Use Exceptions for ride changes</strong><span class="muted">If a student is riding home with a different family or another student's car today, mark it here so it isn't flagged as wrong.</span></li>
+        <li><strong>Look up Authorized Pickup on the spot</strong><span class="muted">Search a student or family name to see exactly who's cleared to pick them up — no need to call the office to confirm.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Reports &amp; roster</h2>
+      <ol class="steps">
+        <li><strong>Print a dismissal report</strong><span class="muted">Reports gives you a printable, dated pickup report for any day — handy for a paper record.</span></li>
+        <li><strong>Check Insights and the Leaderboard</strong><span class="muted">See dismissal-time trends over time, and which staff have the fastest check-ins/checkouts.</span></li>
+        <li><strong>Manage your roster</strong><span class="muted">Roster is behind its own password (separate from the main board) — add, edit, or bulk-import students via CSV. There's a step-by-step Roster Import Guide in the admin area if you're building that spreadsheet for the first time.</span></li>
+        <li><strong>Add a same-day guest ("shadow") student</strong><span class="muted">For a visiting or temporary student who isn't in your permanent roster — set how long they should stay listed, and they're removed automatically after that date.</span></li>
+        <li><strong>Adjust your campus's Settings</strong><span class="muted">Dismissal timing and other per-campus preferences live here.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>For org admins: adding a new campus</h2>
+      <ol class="steps">
+        <li><strong>Sign in at the admin login</strong><span class="muted">Separate from every campus's own roster password — this is the org-wide super-admin account.</span></li>
+        <li><strong>Create the new campus</strong><span class="muted">Give it a name and a URL slug (e.g. "Denver" → .../denver), set its roster password, and add an admin email/password for that site.</span></li>
+      </ol>
+      <div class="callout"><strong>Note:</strong> this is how any Alpha campus gets its own fully working instance — no separate deployment needed, just a new entry in the admin panel.</div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="cta">
+      <a href="https://carline-pickup-system.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Open the app →</a>
+      <a href="index.html" class="btn btn-secondary">Back to all tools</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">Alpha CC Toolkit · Built by Justin Peterson</div>
+  </footer>
+</body>
+</html>

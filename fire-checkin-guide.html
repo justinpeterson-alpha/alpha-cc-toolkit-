@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>How to use Fire Drill Attendance — Alpha CC Toolkit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'>CC</text></svg>" />
+  <style>
+    :root {
+      --bg: #ffffff; --bg-soft: #f7f8fa; --text: #1f2328; --text-muted: #5b636e; --text-faint: #8b929c;
+      --border: #e6e8ec; --border-strong: #d5d9df; --accent: #2563eb; --accent-hover: #1d4ed8;
+      --accent-soft: #eff4ff; --accent-ink: #1e40af; --green: #16a34a; --green-soft: #ecfdf3;
+      --radius: 12px; --shadow: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
+      --max: 860px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .topbar { border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--text-muted); }
+    .back:hover { color: var(--text); }
+    header.hero { padding: 56px 0 8px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(30px, 5vw, 42px); letter-spacing: -0.03em; font-weight: 800; margin-bottom: 14px; }
+    .lead { font-size: 18px; color: var(--text-muted); max-width: 640px; margin-bottom: 32px; }
+    .video-slot {
+      border: 1px dashed var(--border-strong); border-radius: var(--radius); background: var(--bg-soft);
+      aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; color: var(--text-faint); margin-bottom: 48px;
+    }
+    .video-slot strong { color: var(--text-muted); font-size: 15px; font-weight: 600; }
+    .video-slot span { font-size: 13px; }
+    section { padding: 8px 0 48px; }
+    section h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 16px; }
+    .steps li {
+      counter-increment: step; position: relative; padding: 18px 20px 18px 56px; border: 1px solid var(--border);
+      border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); font-size: 15.5px; color: var(--text);
+    }
+    .steps li::before {
+      content: counter(step); position: absolute; left: 18px; top: 16px; width: 26px; height: 26px; border-radius: 8px;
+      background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center;
+    }
+    .steps li strong { display: block; margin-bottom: 2px; }
+    .steps li .muted { color: var(--text-muted); }
+    .callout { border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-soft); padding: 18px 20px; font-size: 14.5px; color: var(--text-muted); margin-top: 24px; }
+    .callout strong { color: var(--text); }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; padding: 8px 0 64px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: 15px; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary { background: #fff; color: var(--text); border: 1px solid var(--border-strong); }
+    .btn-secondary:hover { border-color: var(--text-faint); background: var(--bg-soft); }
+    footer { border-top: 1px solid var(--border); padding: 28px 0; font-size: 14px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <a href="index.html" class="back">← Back to Alpha CC Toolkit</a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span>How to use it</span>
+      <h1>Fire Drill Attendance</h1>
+      <p class="lead">A real-time headcount tool for fire drills and real evacuations. Guides check in the students at the rally point, coordinators watch who's still unaccounted for, and every count is saved for review.</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- TODO: once your Loom is recorded, replace this whole .video-slot div with your embed code, e.g.:
+    <div style="position:relative;padding-bottom:56.25%;height:0;">
+      <iframe src="https://www.loom.com/embed/YOUR_VIDEO_ID" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+        style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+    </div>
+    -->
+    <div class="video-slot">
+      <strong>Video walkthrough coming soon</strong>
+      <span>The Loom will drop in right here — the steps below work in the meantime.</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <h2>Step by step</h2>
+      <ol class="steps">
+        <li><strong>Tap "I'm a Guide" and select your name</strong><span class="muted">Filling in for someone else? Just type your name in if it's not in the list.</span></li>
+        <li><strong>When the alarm goes (drill or real), check in your students</strong><span class="muted">Search or say a student's name at the rally point to check them in — you can check in any student, not just your own.</span></li>
+        <li><strong>Watch for the color</strong><span class="muted">Green means checked in with you. Amber means another guide already has that student checked in — no need to double up.</span></li>
+        <li><strong>Coordinators: start the count</strong><span class="muted">Tap "Start" to open the Dashboard, which shows a live Expected / Checked-In / Unaccounted breakdown, broken out by level and normal guide.</span></li>
+        <li><strong>Chase down anyone unaccounted</strong><span class="muted">The Dashboard tells you exactly who's missing and who their usual guide is, so you know who to send looking.</span></li>
+        <li><strong>End the count when it's clear</strong><span class="muted">This freezes the results and saves them to History for review afterward — useful for compliance records.</span></li>
+        <li><strong>Manage your roster anytime</strong><span class="muted">Coordinators can add, edit, or remove students and guides right in the app — no redeploy needed.</span></li>
+      </ol>
+      <div class="callout"><strong>Note:</strong> this app has no login screen so it's fast to use in an emergency — only share the link with staff, not publicly.</div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="cta">
+      <a href="https://fire-checkin.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Open the app →</a>
+      <a href="index.html" class="btn btn-secondary">Back to all tools</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">Alpha CC Toolkit · Built by Justin Peterson</div>
+  </footer>
+</body>
+</html>

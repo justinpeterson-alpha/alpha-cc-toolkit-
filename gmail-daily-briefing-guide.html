@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Gmail Daily Briefing — Setup Guide | Alpha CC Toolkit</title>
+  <meta name="description" content="Copy-paste template for setting up an automated daily Gmail briefing, by Justin Peterson." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'>CC</text></svg>" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f7f8fa;
+      --text: #1f2328;
+      --text-muted: #5b636e;
+      --text-faint: #8b929c;
+      --border: #e6e8ec;
+      --border-strong: #d5d9df;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-soft: #eff4ff;
+      --accent-ink: #1e40af;
+      --green: #16a34a;
+      --green-soft: #ecfdf3;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --radius: 12px;
+      --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+      --max: 860px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    a { color: inherit; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    .nav {
+      position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; text-decoration: none; }
+    .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+    .back { font-size: 14px; font-weight: 600; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .back:hover { color: var(--text); }
+
+    header.hero { padding: 56px 0 36px; }
+    .badge-workflow {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+      padding: 5px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); margin-bottom: 18px;
+    }
+    h1 { font-size: clamp(30px, 4.5vw, 42px); letter-spacing: -0.03em; font-weight: 800; line-height: 1.1; margin-bottom: 14px; }
+    .lead { font-size: 18px; color: var(--text-muted); max-width: 620px; }
+    .meta-row { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 24px; font-size: 13px; color: var(--text-faint); }
+    .meta-row span { display: flex; align-items: center; gap: 6px; }
+
+    section.block { padding: 36px 0; border-top: 1px solid var(--border); }
+    section.block:first-of-type { border-top: none; }
+    h2 { font-size: 22px; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 16px; }
+    h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-ink);
+      font-size: 14px; font-weight: 700; margin-right: 10px; vertical-align: middle;
+    }
+    p { color: var(--text-muted); font-size: 16px; margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--text); font-weight: 600; }
+    code {
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.88em;
+      background: var(--bg-soft); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px;
+    }
+
+    /* setup steps */
+    .how-step { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .how-step:last-child { border-bottom: none; }
+    .how-step .n {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; background: var(--bg-soft);
+      border: 1px solid var(--border); color: var(--text-muted); font-weight: 700; font-size: 13px;
+      display: grid; place-items: center;
+    }
+    .how-step h3 { font-size: 15px; font-weight: 650; margin-bottom: 4px; }
+    .how-step p { font-size: 15px; margin-bottom: 0; }
+
+    /* sample output */
+    .sample {
+      background: #1a1d29; color: #e4e6eb; border-radius: var(--radius); padding: 22px 24px;
+      font-size: 14.5px; line-height: 1.7; overflow-x: auto;
+    }
+    .sample .todo-head { color: #ffd166; font-weight: 700; }
+    .sample .tag { color: #7cc4ff; }
+    .sample .sec { color: #9fe6a0; font-weight: 700; display: block; margin-top: 14px; }
+    .sample .sec:first-child { margin-top: 0; }
+    .sample-note { font-size: 13px; color: var(--text-faint); margin-top: 10px; }
+
+    /* placeholder table */
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-top: 4px; }
+    th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+
+    /* code block */
+    .codeblock-wrap { position: relative; }
+    .codeblock {
+      background: #1a1d29; color: #d8dce6; border-radius: var(--radius); padding: 20px 22px;
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; line-height: 1.75;
+      overflow-x: auto; white-space: pre-wrap; word-break: break-word;
+    }
+    .codeblock .ph { color: #ffd166; }
+    .codeblock .kw { color: #7cc4ff; }
+    .codeblock .cm { color: #6b7280; }
+    .copy-btn {
+      position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); color: #e4e6eb;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 6px 12px; font-size: 12.5px;
+      font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.16); }
+    .copy-btn.copied { background: var(--green); border-color: var(--green); }
+
+    .callout {
+      display: flex; gap: 12px; background: var(--amber-soft); border: 1px solid #fde3ad; border-radius: 10px;
+      padding: 14px 16px; font-size: 14.5px; color: #7c4a03; margin-top: 18px;
+    }
+    .callout strong { color: #7c4a03; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 15px; background: var(--accent); color: #fff; text-decoration: none;
+    }
+    .btn:hover { background: var(--accent-hover); }
+
+    .checklist-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12.5px; font-weight: 500;
+      background: var(--bg-soft); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; color: var(--text);
+    }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 20px; }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13.5px; color: var(--text-faint); }
+
+    @media (max-width: 640px) {
+      .container, .nav-inner { padding: 0 18px; }
+      header.hero { padding: 40px 0 28px; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      td { border: none; padding: 4px 0; }
+      tr { padding: 12px 0; border-bottom: 1px solid var(--border); }
+      td:first-child { font-weight: 600; color: var(--text); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">CC</span>
+        <span>Alpha CC Toolkit</span>
+      </a>
+      <a href="index.html#workflows" class="back">← All workflows</a>
+    </div>
+  </nav>
+
+  <header class="hero container">
+    <span class="badge-workflow">Workflow · Setup guide</span>
+    <h1>Build Your Own Daily Gmail Briefing</h1>
+    <p class="lead">A copy-paste template for an automated daily Gmail briefing. It scans your inbox and sent mail for what actually needs a response, filters out the noise, and leaves a ready-to-read draft waiting every morning.</p>
+    <div class="meta-row">
+      <span>⏱ ~10 min setup</span>
+      <span>🧩 No coding required</span>
+      <span>🔌 Requires Gmail connected to Claude</span>
+    </div>
+  </header>
+
+  <section class="block container">
+    <h2>Setup steps</h2>
+    <div class="how-step">
+      <div class="n">1</div>
+      <div>
+        <h3>Pick your delivery</h3>
+        <p>Decide if you want the briefing as a Gmail draft only, or a Gmail draft <em>plus</em> a Slack DM to yourself. The template below includes both — delete the Slack paragraph if you only want the draft.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="n">2</div>
+      <div>
+        <h3>Fill in every placeholder</h3>
+        <p>Anything in <code>[BRACKETS]</code> in the template. These are the only parts you need to change.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="n">3</div>
+      <div>
+        <h3>Pick a time and time zone</h3>
+        <p>Decide when it should run each day (e.g. "7:15am Eastern, weekdays only"). Mornings work best since it summarizes the <em>previous</em> calendar day.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="n">4</div>
+      <div>
+        <h3>Ask Claude to create the scheduled task</h3>
+        <p>Paste the filled-in template and say: <em>"Create a scheduled task that runs this every [FREQUENCY] at [TIME] in [TIME ZONE], using this exact prompt: [paste template]."</em> Claude will confirm the schedule and whether it needs your approval on each run.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="n">5</div>
+      <div>
+        <h3>Test it once before trusting it</h3>
+        <p>Ask Claude to fire the task immediately as a manual test run, so you can see the output and adjust wording before it runs unattended.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="n">6</div>
+      <div>
+        <h3>Tune after the first real run</h3>
+        <p>Loosen or tighten the filtering rules, add or remove sections, and rename categories to match how your role actually works.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block container">
+    <h2>What it filters</h2>
+    <p><strong>Covers:</strong> real mail only — anything you'd actually reply to, plus both new threads and older threads that got a new message during the window. Sent mail is checked too, so the briefing reflects what you owe a reply to as well as what's owed to you.</p>
+    <p><strong>Excludes:</strong> newsletters, marketing, and automated notifications (no-reply senders, delivery receipts, content-free calendar invites, file-share notices) — with one exception: an automated message is kept if it has a real deadline, a security or access alert, an invoice or payment issue, or something requiring action.</p>
+  </section>
+
+  <section class="block container">
+    <h2>Sample output</h2>
+    <p style="margin-bottom:16px">What a finished briefing looks like (illustrative, not real inbox data):</p>
+    <div class="sample">
+      <span class="todo-head">Today's To-Do List</span><br/>
+      <em>Urgent:</em> Reply to district office re: field trip permission deadline <span class="tag">[Needs a reply]</span> · Approve the substitute request for Thursday <span class="tag">[Deadlines]</span><br/>
+      <em>Regular:</em> Circle back with the caterer on Friday's order <span class="tag">[Awaiting someone else]</span>
+      <span class="sec">1. Needs a reply from me</span>
+      District office, field trip permission slips — asked Tuesday, no reply yet.
+      <span class="sec">2. Awaiting someone else</span>
+      Caterer hasn't confirmed Friday's headcount, asked 2 days ago.
+      <span class="sec">3. Deadlines, dates &amp; commitments</span>
+      Substitute approval due end of day tomorrow.
+      <span class="sec">4. Vendors, facilities &amp; ops</span>
+      HVAC contractor confirmed Monday's repair window.
+      <span class="sec">5. Notable patterns</span>
+      Third email this month from the same parent about carline timing — may be worth a direct call.
+    </div>
+    <p class="sample-note">Section names in your version will match whatever ops/people categories you set in the template.</p>
+  </section>
+
+  <section class="block container">
+    <h2>Step 1 — Fill in the template</h2>
+    <p style="margin-bottom:18px">Copy the block below, replace every <code>[BRACKET]</code>, then hand it to Claude as instructed above.</p>
+    <div class="codeblock-wrap">
+      <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+      <div class="codeblock" id="promptBlock">You are generating my daily GMAIL briefing, covering the previous calendar
+day (yesterday 12:00 AM to 11:59 PM, <span class="ph">[TIME ZONE]</span>). I am <span class="ph">[YOUR NAME]</span>, <span class="ph">[YOUR
+TITLE]</span> at <span class="ph">[YOUR ORGANIZATION/CAMPUS]</span> (<span class="ph">[YOUR EMAIL]</span>).
+
+<span class="cm">[OPTIONAL: This is a companion to my [OTHER BRIEFING NAME], a separate
+scheduled task that runs at [TIME]. Do not re-summarize that content here.]</span>
+
+<span class="kw">DATA COLLECTION</span>
+Use the Gmail connector. Search threads received or sent during the window.
+Two passes: (1) new threads that started during the window, (2) older
+threads that got a NEW message during the window — read those too, don't
+assume a quiet day just because few new threads started. Also check my
+Sent mail so the briefing reflects what I said I'd do and what I'm owed a
+reply on.
+
+<span class="kw">SIGNAL FILTERING</span>
+Cover real mail only. Exclude newsletters, marketing, automated
+notifications (no-reply senders, delivery receipts, content-free calendar
+invites, file-share notices) — anything I'd never reply to. Exception:
+keep an automated message if it has a real deadline, a security/access
+alert, an invoice/payment issue, or something requiring my action. Give a
+one-line filtered count at the end; don't list what was filtered.
+
+<span class="kw">REPORT STRUCTURE</span>
+- A 2-3 sentence orientation: what actually mattered.
+- TODAY'S TO-DO LIST, split Urgent/Regular, each item tagged with its
+  source thread.
+- 1. NEEDS A REPLY FROM ME (who, what, when asked, how long waiting)
+- 2. AWAITING SOMEONE ELSE (my open asks, how long pending)
+- 3. DEADLINES, DATES &amp; COMMITMENTS (near-term first)
+- 4. <span class="ph">[YOUR OPS CATEGORY, e.g. "VENDORS, FACILITIES &amp; OPS"]</span> — list your
+  recurring vendor/ops categories here, e.g. <span class="ph">[VENDOR A]</span>, <span class="ph">[IT PROVIDER]</span>,
+  <span class="ph">[FACILITIES CONTACT]</span>
+- 5. <span class="ph">[YOUR PEOPLE CATEGORY, e.g. "STUDENT &amp; PARENT MATTERS"]</span> — be factual,
+  don't speculate on sensitive matters
+- 6. INTERNAL / ORG (must-do vs. FYI)
+- 7. NOTABLE PATTERNS (repeat senders, recurring issues)
+If a section is empty, say so plainly rather than skipping it.
+
+<span class="kw">DELIVERY</span>
+1. <span class="cm">[OPTIONAL — SLACK]</span> Post to my own Slack DM (user ID <span class="ph">[YOUR SLACK USER
+   ID]</span>, channel <span class="ph">[YOUR DM CHANNEL ID]</span>). Header + orientation + to-do as the
+   parent message; each section as a threaded reply. Use Slack markdown
+   (*bold*, _italic_, • bullets), not markdown headers.
+2. Create a Gmail DRAFT to <span class="ph">[YOUR EMAIL]</span> with subject "Gmail Daily Briefing
+   – [date]", an HTML body and a plain-text fallback. Leave as a DRAFT —
+   do not send.
+
+Confirm delivery and state the filtered-message count when done.</div>
+    </div>
+    <div class="callout">
+      <span>⚠️</span>
+      <span><strong>Heads up:</strong> the placeholders above are highlighted for readability. When you copy the block, copy the plain text underneath — Claude will read <code>[TIME ZONE]</code> etc. as literal text to replace, not as code.</span>
+    </div>
+  </section>
+
+  <section class="block container">
+    <h2>Placeholder checklist</h2>
+    <p style="margin-bottom:16px">Every bracket you need to fill in (or delete, for the optional ones):</p>
+    <div class="checklist-pills">
+      <span class="pill">[TIME ZONE]</span>
+      <span class="pill">[YOUR NAME]</span>
+      <span class="pill">[YOUR TITLE]</span>
+      <span class="pill">[YOUR ORGANIZATION/CAMPUS]</span>
+      <span class="pill">[YOUR EMAIL]</span>
+      <span class="pill">[OTHER BRIEFING NAME] — delete if none</span>
+      <span class="pill">[YOUR OPS CATEGORY] + examples</span>
+      <span class="pill">[YOUR PEOPLE CATEGORY]</span>
+      <span class="pill">[YOUR SLACK USER ID]</span>
+      <span class="pill">[YOUR DM CHANNEL ID] — delete both if skipping Slack</span>
+      <span class="pill">[FREQUENCY]</span>
+      <span class="pill">[TIME]</span>
+    </div>
+  </section>
+
+  <section class="block container">
+    <div style="margin-top:4px">
+      <a href="index.html#workflows" class="btn">← Back to all workflows</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot">
+      <div>Alpha CC Toolkit · Built by Justin Peterson</div>
+      <div><a href="index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    function copyBlock(btn) {
+      const el = document.getElementById('promptBlock');
+      const text = el.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+      });
+    }
+  </script>
+</body>
+</html>
