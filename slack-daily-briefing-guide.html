@@ -8,33 +8,33 @@
   <meta name="description" content="Copy-paste template for setting up an automated daily Slack briefing, by Justin Peterson." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'>CC</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23B8420F'/><text x='16' y='21' font-family='monospace' font-weight='700' font-size='13' fill='white' text-anchor='middle'>CC</text></svg>" />
   <style>
     :root {
-      --bg: #ffffff;
-      --bg-soft: #f7f8fa;
-      --text: #1f2328;
-      --text-muted: #5b636e;
-      --text-faint: #8b929c;
-      --border: #e6e8ec;
-      --border-strong: #d5d9df;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
-      --accent-soft: #eff4ff;
-      --accent-ink: #1e40af;
-      --green: #16a34a;
-      --green-soft: #ecfdf3;
+      --bg: #FAF7F0;
+      --bg-soft: #F0EBDD;
+      --text: #201D18;
+      --text-muted: #625C4F;
+      --text-faint: #93897A;
+      --border: #DDD4BF;
+      --border-strong: #C2B79C;
+      --accent: #B8420F;
+      --accent-hover: #7E2E0A;
+      --accent-soft: #F1DCC9;
+      --accent-ink: #7E2E0A;
+      --green: #3D6B37;
+      --green-soft: #E4EBDE;
       --amber: #b45309;
       --amber-soft: #fffbeb;
-      --radius: 12px;
+      --radius: 3px;
       --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
       --max: 860px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
@@ -54,33 +54,34 @@
     }
     .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; text-decoration: none; }
-    .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+    .brand-mark { width: 28px; height: 28px; border-radius: 4px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 700; font-family: "IBM Plex Mono", ui-monospace, monospace; }
     .back { font-size: 14px; font-weight: 600; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 6px; }
     .back:hover { color: var(--text); }
 
     header.hero { padding: 56px 0 36px; }
     .badge-workflow {
-      display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
-      padding: 5px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); margin-bottom: 18px;
+      display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400;
+      color: var(--text-muted); margin-bottom: 18px; font-family: "IBM Plex Mono", ui-monospace, monospace;
     }
-    h1 { font-size: clamp(30px, 4.5vw, 42px); letter-spacing: -0.03em; font-weight: 800; line-height: 1.1; margin-bottom: 14px; }
+    .badge-workflow::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex-shrink: 0; }
+    h1 { font-family: "Space Grotesk", system-ui, sans-serif; font-size: clamp(28px, 4.5vw, 40px); letter-spacing: -0.02em; font-weight: 700; line-height: 1.1; margin-bottom: 14px; }
     .lead { font-size: 18px; color: var(--text-muted); max-width: 620px; }
     .meta-row { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 24px; font-size: 13px; color: var(--text-faint); }
     .meta-row span { display: flex; align-items: center; gap: 6px; }
 
     section.block { padding: 36px 0; border-top: 1px solid var(--border); }
     section.block:first-of-type { border-top: none; }
-    h2 { font-size: 22px; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 16px; }
+    h2 { font-family: "Space Grotesk", system-ui, sans-serif; font-size: 21px; letter-spacing: -0.015em; font-weight: 700; margin-bottom: 16px; }
     h2 .num {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-ink);
+      width: 28px; height: 28px; border-radius: 4px; background: var(--accent-soft); color: var(--accent-ink); font-family: "IBM Plex Mono", ui-monospace, monospace;
       font-size: 14px; font-weight: 700; margin-right: 10px; vertical-align: middle;
     }
     p { color: var(--text-muted); font-size: 16px; margin-bottom: 12px; }
     p:last-child { margin-bottom: 0; }
     strong { color: var(--text); font-weight: 600; }
     code {
-      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.88em;
+      font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.88em;
       background: var(--bg-soft); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px;
     }
 
@@ -88,7 +89,7 @@
     .how-step { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); }
     .how-step:last-child { border-bottom: none; }
     .how-step .n {
-      flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; background: var(--bg-soft);
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 4px; background: var(--bg-soft);
       border: 1px solid var(--border); color: var(--text-muted); font-weight: 700; font-size: 13px;
       display: grid; place-items: center;
     }
@@ -116,7 +117,7 @@
     .codeblock-wrap { position: relative; }
     .codeblock {
       background: #1a1d29; color: #d8dce6; border-radius: var(--radius); padding: 20px 22px;
-      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; line-height: 1.75;
+      font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; line-height: 1.75;
       overflow-x: auto; white-space: pre-wrap; word-break: break-word;
     }
     .codeblock .ph { color: #ffd166; }
@@ -124,21 +125,21 @@
     .codeblock .cm { color: #6b7280; }
     .copy-btn {
       position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); color: #e4e6eb;
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 6px 12px; font-size: 12.5px;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 6px 12px; font-size: 12.5px;
       font-weight: 600; cursor: pointer; font-family: inherit;
     }
     .copy-btn:hover { background: rgba(255,255,255,0.16); }
     .copy-btn.copied { background: var(--green); border-color: var(--green); }
 
     .callout {
-      display: flex; gap: 12px; background: var(--amber-soft); border: 1px solid #fde3ad; border-radius: 10px;
-      padding: 14px 16px; font-size: 14.5px; color: #7c4a03; margin-top: 18px;
+      background: var(--amber-soft); border-left: 3px solid var(--amber); border-radius: var(--radius);
+      padding: 14px 16px; font-size: 14.5px; color: #6b4415; margin-top: 18px;
     }
-    .callout strong { color: #7c4a03; }
+    .callout strong { color: #4a2e0e; }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px;
-      font-weight: 600; font-size: 15px; background: var(--accent); color: #fff; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: var(--radius);
+      font-weight: 500; font-size: 15px; background: var(--accent); color: #fff; text-decoration: none; font-family: "Public Sans", system-ui, sans-serif;
     }
     .btn:hover { background: var(--accent-hover); }
 
@@ -176,13 +177,13 @@
   </nav>
 
   <header class="hero container">
-    <span class="badge-workflow">Workflow · Setup guide</span>
+    <span class="badge-workflow">workflow guide</span>
     <h1>Build Your Own Daily Slack Briefing</h1>
     <p class="lead">A copy-paste template for setting up an automated daily Slack briefing — the same one running for Alpha Miami's Campus Coordinator. It reads a fixed set of channels plus your DMs, and delivers a to-do-first summary every morning.</p>
     <div class="meta-row">
-      <span>⏱ ~10 min setup</span>
-      <span>🧩 No coding required</span>
-      <span>🔌 Requires Slack connected to Claude</span>
+      <span>~10 min setup</span>
+      <span>No coding required</span>
+      <span>Requires Slack connected to Claude</span>
     </div>
   </header>
 
@@ -196,7 +197,7 @@
     <h2><span class="num">2</span>Source</h2>
     <p>Your own DM history, plus 3–5 channels that matter to your role: one high-traffic team channel, one site-specific channel, one requests/tickets channel, one org-wide announcements channel.</p>
     <p>For each channel, two passes run: pull new top-level messages in the date window, <strong>and</strong> separately check for threads that got new replies in that window — even if the parent message is older. That second pass is what catches replies to older threads the first pass alone would miss.</p>
-    <div class="callout"><span>⚠️</span><span><strong>DM volume drives runtime:</strong> "your DM history" isn't a single searchable source — Slack has no one-shot way to pull all DMs for a date window. Every 1:1 and group DM you're in has to be checked individually. With a lot of DM history (100+ conversations isn't unusual), this step alone can take noticeably longer and cost more than the "~10 min setup" above implies — that estimate is for filling in the template, not how long each run takes.</span></div>
+    <div class="callout"><span><strong>DM volume drives runtime:</strong> "your DM history" isn't a single searchable source — Slack has no one-shot way to pull all DMs for a date window. Every 1:1 and group DM you're in has to be checked individually. With a lot of DM history (100+ conversations isn't unusual), this step alone can take noticeably longer and cost more than the "~10 min setup" above implies — that estimate is for filling in the template, not how long each run takes.</span></div>
   </section>
 
   <section class="block container">
@@ -243,7 +244,7 @@
 
   <section class="block container">
     <h2>Step 1 — Fill in your placeholders</h2>
-    <div class="callout" style="margin-bottom:18px"><span>⚠️</span><span><strong>Confirm your channels first:</strong> a mistyped or renamed channel name won't fail loudly — Claude may quietly substitute the closest match, or report an archived channel with no current replacement as simply "quiet" that day. Before you schedule anything, ask Claude to confirm it can find and read each of your four channels by name. Fix any mismatches now, not after a week of silently wrong reports.</span></div>
+    <div class="callout" style="margin-bottom:18px"><span><strong>Confirm your channels first:</strong> a mistyped or renamed channel name won't fail loudly — Claude may quietly substitute the closest match, or report an archived channel with no current replacement as simply "quiet" that day. Before you schedule anything, ask Claude to confirm it can find and read each of your four channels by name. Fix any mismatches now, not after a week of silently wrong reports.</span></div>
     <table>
       <thead><tr><th>Placeholder</th><th>What it is</th><th>How to find it</th></tr></thead>
       <tbody>
@@ -301,7 +302,7 @@ Produce a report with these sections, in order:
    "Slack Daily Briefing – [date]" containing the same report as HTML.</div>
     </div>
     <div class="callout">
-      <span>⚠️</span>
+      
       <span><strong>Heads up:</strong> the placeholders above are highlighted for readability. When you copy the block, copy the plain text underneath — Claude will read <code>{CHANNEL_1}</code> etc. as literal text to replace, not as code.</span>
     </div>
   </section>
@@ -316,7 +317,7 @@ Produce a report with these sections, in order:
 
   <footer>
     <div class="container foot">
-      <div>Alpha CC Toolkit · Built by Justin Peterson</div>
+      <div>Alpha CC Toolkit<span style="margin-left:14px">Built by Justin Peterson</span></div>
       <div><a href="index.html">Home</a></div>
     </div>
   </footer>
