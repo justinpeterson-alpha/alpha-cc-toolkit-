@@ -189,12 +189,14 @@
   <section class="block container">
     <h2><span class="num">1</span>Schedule</h2>
     <p>Runs once a day as a scheduled task (not a live chat), covering the previous calendar day. Pick one fixed time zone up front — every date filter depends on it.</p>
+    <p><strong>On a Monday run:</strong> "the previous day" means the entire weekend (Friday evening through Sunday night), not just Sunday — otherwise anything that happened Friday or Saturday never gets covered. The template below spells this out explicitly rather than leaving it to guesswork.</p>
   </section>
 
   <section class="block container">
     <h2><span class="num">2</span>Source</h2>
     <p>Your own DM history, plus 3–5 channels that matter to your role: one high-traffic team channel, one site-specific channel, one requests/tickets channel, one org-wide announcements channel.</p>
     <p>For each channel, two passes run: pull new top-level messages in the date window, <strong>and</strong> separately check for threads that got new replies in that window — even if the parent message is older. That second pass is what catches replies to older threads the first pass alone would miss.</p>
+    <div class="callout"><span>⚠️</span><span><strong>DM volume drives runtime:</strong> "your DM history" isn't a single searchable source — Slack has no one-shot way to pull all DMs for a date window. Every 1:1 and group DM you're in has to be checked individually. With a lot of DM history (100+ conversations isn't unusual), this step alone can take noticeably longer and cost more than the "~10 min setup" above implies — that estimate is for filling in the template, not how long each run takes.</span></div>
   </section>
 
   <section class="block container">
@@ -241,6 +243,7 @@
 
   <section class="block container">
     <h2>Step 1 — Fill in your placeholders</h2>
+    <div class="callout" style="margin-bottom:18px"><span>⚠️</span><span><strong>Confirm your channels first:</strong> a mistyped or renamed channel name won't fail loudly — Claude may quietly substitute the closest match, or report an archived channel with no current replacement as simply "quiet" that day. Before you schedule anything, ask Claude to confirm it can find and read each of your four channels by name. Fix any mismatches now, not after a week of silently wrong reports.</span></div>
     <table>
       <thead><tr><th>Placeholder</th><th>What it is</th><th>How to find it</th></tr></thead>
       <tbody>
@@ -259,7 +262,9 @@
     <div class="codeblock-wrap">
       <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
       <div class="codeblock" id="promptBlock">You are generating my daily Slack briefing, covering the previous calendar
-day (yesterday 12:00 AM to 11:59 PM, <span class="ph">{YOUR_TIMEZONE}</span>).
+day (yesterday 12:00 AM to 11:59 PM, <span class="ph">{YOUR_TIMEZONE}</span>). If today is Monday,
+"the previous day" means the full weekend — Friday 12:00 AM through Sunday
+11:59 PM — not just Sunday alone.
 
 <span class="kw">DATA COLLECTION</span> — use a two-pass approach for every channel below:
 Pass 1: Pull new top-level messages posted during the window.
